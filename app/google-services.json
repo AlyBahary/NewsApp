@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "28532042619",
+    "firebase_url": "https://robabikia-news.firebaseio.com",
+    "project_id": "robabikia-news",
+    "storage_bucket": "robabikia-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28532042619:android:1663503d67a2663c",
+        "android_client_info": {
+          "package_name": "com.example.bahary.robabikia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28532042619-ua45ku40d1h1ugialnpdhf4hr3trgsf0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5VQZlW1mQX1i193cjgNtJ0F8WyTI62I4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

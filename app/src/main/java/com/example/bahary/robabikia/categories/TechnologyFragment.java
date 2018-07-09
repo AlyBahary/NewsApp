@@ -26,11 +26,11 @@ import retrofit2.Response;
 public class TechnologyFragment extends Fragment implements Connectors.ErrorCallback, Connectors.LoadCallback {
     public NewsAdapter newsAdapter;
     public ArrayList<Articles> mArticlesArrayList;
-
-
     public TechnologyFragment() {
         // Required empty public constructor
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,18 +40,12 @@ public class TechnologyFragment extends Fragment implements Connectors.ErrorCall
 
         mArticlesArrayList = new ArrayList<>();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.RV);
-        recyclerView.setLayoutManager(new
-
-                LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
-        newsAdapter = new
-
-                NewsAdapter(this.getActivity(), mArticlesArrayList);
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
+        newsAdapter = new NewsAdapter(this.getActivity(), mArticlesArrayList);
         recyclerView.setAdapter(newsAdapter);
 
         Connectors connectors = new Connectors(this, this);
         connectors.Connection(2);
-
         return view;
     }
 

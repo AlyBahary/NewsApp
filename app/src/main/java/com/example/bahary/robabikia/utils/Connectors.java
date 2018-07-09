@@ -7,6 +7,7 @@ import com.example.bahary.robabikia.model.Articles;
 import com.example.bahary.robabikia.model.MainModel;
 import com.google.gson.Gson;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -18,6 +19,7 @@ import retrofit2.http.GET;
 
 public class Connectors {
 
+
     private LoadCallback mLoadCallback;
     private ErrorCallback mErrorCallback;
 
@@ -26,6 +28,7 @@ public class Connectors {
         void onComplete(Response<MainModel> response);
 
     }
+
 
     public interface ErrorCallback {
 

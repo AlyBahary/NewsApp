@@ -26,8 +26,6 @@ import retrofit2.Response;
 public class BussinesFragment extends Fragment implements Connectors.ErrorCallback, Connectors.LoadCallback {
     public NewsAdapter newsAdapter;
     public ArrayList<Articles> mArticlesArrayList;
-
-
     public BussinesFragment() {
         // Required empty public constructor
     }
@@ -43,13 +41,11 @@ public class BussinesFragment extends Fragment implements Connectors.ErrorCallba
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false));
         newsAdapter = new NewsAdapter(this.getActivity(), mArticlesArrayList);
-
         recyclerView.setAdapter(newsAdapter);
 
         Connectors connectors = new Connectors(this, this);
         connectors.Connection(1);
         return view;
-
     }
 
     @Override

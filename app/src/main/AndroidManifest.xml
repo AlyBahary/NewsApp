@@ -22,8 +22,8 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PostActivity" />
-        <activity android:name=".FavouritsActivity"></activity>
+        <activity android:name=".FavouritsActivity" />
+        <activity android:name=".EmptyActivty"></activity>
     </application>
 
 </manifest>

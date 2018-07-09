@@ -2,7 +2,7 @@ package com.example.bahary.robabikia.model;
 
 import java.io.Serializable;
 
-public class Articles implements Serializable {
+public class Articles  {
     private String publishedAt;
 
     private String author;

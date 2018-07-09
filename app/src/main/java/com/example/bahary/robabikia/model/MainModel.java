@@ -13,6 +13,16 @@ public class MainModel
 
     private String status;
 
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
+    }
+
+    private String Key;
+
     public List<Articles> getArticles() {
         return articles;
     }

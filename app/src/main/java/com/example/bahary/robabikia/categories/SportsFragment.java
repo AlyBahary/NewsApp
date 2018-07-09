@@ -27,8 +27,6 @@ import retrofit2.Response;
 public class SportsFragment extends Fragment implements Connectors.ErrorCallback, Connectors.LoadCallback {
     public NewsAdapter newsAdapter;
     public ArrayList<Articles> mArticlesArrayList;
-
-
     public SportsFragment() {
         // Required empty public constructor
     }
