@@ -39,6 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private ProgressDialog dialog;
+
     @Override
     public void onBackPressed() {
         finish();
@@ -53,17 +54,19 @@ public class RegistrationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-        dialog=new ProgressDialog(this);
+        dialog = new ProgressDialog(this);
         //mAuth=FirebaseAuth.getInstance();
 
 
         if (Hawk.contains(Constants.mEmail_Key)) {
             email.setText(Hawk.get(Constants.mEmail_Key) + "");
         }
-        if(Hawk.get(Constants.loginflag).equals("1")){
-            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-            startActivity(intent);
-            finish();
+        if (Hawk.contains(Constants.loginflag)) {
+            if (Hawk.get(Constants.loginflag).equals("1")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
         go.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,13 +94,15 @@ public class RegistrationActivity extends AppCompatActivity {
                                 finish();
                                 dialog.dismiss();
                                 //if flag=="0" there is no internet connection
-                                Hawk.put(Constants.loginflag,"1");
+                                Hawk.put(Constants.loginflag, "1");
+                                Hawk.put(Constants.UserID,mAuth.getCurrentUser().getUid());
+
 
                             } else {
 
                                 try {
                                     throw task.getException();
-                                }  catch (FirebaseAuthInvalidCredentialsException e) {
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
                                     Helper.printText(getApplicationContext(), "Please write Valid Email");
                                     dialog.dismiss();
 
@@ -108,7 +113,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     dialog.dismiss();
                                     //if flag=="0" there is no internet connection
-                                    Hawk.put(Constants.loginflag,"0");
+                                    Hawk.put(Constants.loginflag, "0");
                                 }
 
                                 mAuth.createUserWithEmailAndPassword(useremail, "12345678")
@@ -121,8 +126,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                                     startActivity(intent);
                                                     dialog.dismiss();
                                                     //if flag=="1" there is internet connection
-
-                                                    Hawk.put(Constants.loginflag,"1");
+                                                    Hawk.put(Constants.UserID,mAuth.getCurrentUser().getUid());
+                                                    Hawk.put(Constants.loginflag, "1");
 
 
                                                 } else {

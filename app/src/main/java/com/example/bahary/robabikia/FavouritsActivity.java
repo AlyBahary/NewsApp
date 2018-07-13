@@ -33,7 +33,7 @@ public class FavouritsActivity extends Activity {
     public NewsAdapter newsAdapter;
     public ArrayList<Articles> mArticlesArrayList, mArrayfromFB;
     private FirebaseAuth mAuth;
-    private int Counter = -1;
+    private String user_id = "";
 
 
     @Override
@@ -51,60 +51,70 @@ public class FavouritsActivity extends Activity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         newsAdapter = new NewsAdapter(this, mArrayfromFB);
         recyclerView.setAdapter(newsAdapter);
+        Helper.printLog("loginState",Hawk.get(Constants.loginflag)+""+Hawk.get(Constants.UserID));
 
-        String user_id = mAuth.getCurrentUser().getUid();
+        if ((Hawk.get(Constants.loginflag)+"").trim().equals("1")) {
 
-        ////////////////////////////////
-        ////////////////////////////////
-        ////////////////////////////////
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final Articles articlesfromFB = new Articles();
+                user_id = Hawk.get(Constants.UserID);
+                Helper.printLog("UseID","In");
 
-        try {
+            ////////////////////////////////
+            ////////////////////////////////
+            ////////////////////////////////
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            try {
+                final DatabaseReference myRef = database.getReference(user_id).child("post");
+                // myRef.orderByChild("")
 
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-            final DatabaseReference myRef = database.getReference(user_id).child("post");
-            // myRef.orderByChild("")
-
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot chidSnap : dataSnapshot.getChildren()) {
-                        Log.i("tmz", "" + chidSnap);//gives the value for given keyname
-                        String key = chidSnap.getKey();
-                        Articles x = new Articles();
-                        x.setDescription(chidSnap.child("description").getValue() + "");
-                        x.setPublishedAt(chidSnap.child("publishedAt").getValue() + "");
-                        x.setTitle(chidSnap.child("title").getValue() + "");
-                        x.setUrlToImage(chidSnap.child("urlToImage").getValue() + "");
-                        mArrayfromFB.add(x);
-                        newsAdapter.notifyDataSetChanged();
-                        //Log.i("FireBase", "" + x.getTitle());//gives the value for given keyname
+                        for (DataSnapshot chidSnap : dataSnapshot.getChildren()) {
+                            Log.i("tmz", "" + chidSnap.toString());//gives the value for given keyname
+                            String key = chidSnap.getKey();
+                            Articles x = new Articles();
+                            x.setDescription(chidSnap.child("description").getValue() + "");
+                            x.setPublishedAt(chidSnap.child("publishedAt").getValue() + "");
+                            x.setTitle(chidSnap.child("title").getValue() + "");
+                            x.setUrlToImage(chidSnap.child("urlToImage").getValue() + "");
+                            mArrayfromFB.add(x);
+                            newsAdapter.notifyDataSetChanged();
+                            //Log.i("FireBase", "" + x.getTitle());//gives the value for given keyname
+                        }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.i("tttt", "" + databaseError.toString());//gives the value for given keyname
 
 
-                }
-            });
-        } catch (Exception e) {
+                    }
+                });
+            } catch (Exception e) {
 
-        }
+            }
 
-        if (((mArticlesArrayList).isEmpty()) && ((mArrayfromFB).isEmpty())) {
-            Toast.makeText(this, "there is no thing to show", Toast.LENGTH_SHORT).show();
-        } else {
+            if (((mArticlesArrayList) == null) && ((mArrayfromFB) == null)) {
+                Toast.makeText(this, "there is no thing to show", Toast.LENGTH_SHORT).show();
+            } else {
+                newsAdapter.notifyDataSetChanged();
+
+            }
             newsAdapter.notifyDataSetChanged();
+            Log.i("00000", "null");
 
+            if (mArrayfromFB == null) {
+                Log.i("11111", "null");
+            }
         }
-        newsAdapter.notifyDataSetChanged();
-        if (mArrayfromFB.isEmpty()) {
-            if (mArticlesArrayList.isEmpty()) {
+        else{
+
+            if (mArticlesArrayList == null) {
                 Helper.printText(getApplicationContext(), "There is no thing to Show");
             } else {
+                Log.i("33333", "null");
+
                 for (int i = 0; i < mArticlesArrayList.size(); i++) {
                     Log.i("DB", mArticlesArrayList.get(i).getAuthor() + mArticlesArrayList.get(i).getTitle());
                     if (mArticlesArrayList.get(i).getAuthor() != (Hawk.get(Constants.mEmail_Key))) {
@@ -114,9 +124,7 @@ public class FavouritsActivity extends Activity {
                 mArrayfromFB.addAll(mArticlesArrayList);
                 newsAdapter.notifyDataSetChanged();
             }
-
         }
-
     }
 
 }

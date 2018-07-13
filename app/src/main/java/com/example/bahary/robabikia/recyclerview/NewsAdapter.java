@@ -65,7 +65,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         if (N.getUrlToImage() == null||N.getUrlToImage().equals("")) {
             holder.Img.setVisibility(View.GONE);
         } else {
-            Picasso.with(context).load(N.getUrlToImage()).centerCrop().placeholder(R.drawable.bg_spinner).fit().into(holder.Img);
+            Picasso.with(context).load(N.getUrlToImage()).fit().placeholder(R.drawable.bg_spinner).fit().into(holder.Img);
         }
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override

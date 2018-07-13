@@ -21,5 +21,6 @@ public class Constants {
     public static final String mBundleimgurl = "title";
     public static final String mBundledate = "title";
     public static final String loginflag = "0";
+    public static final String UserID = "";
 
 }
