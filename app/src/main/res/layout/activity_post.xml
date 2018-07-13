@@ -36,7 +36,7 @@
 
             <TextView
                 android:id="@+id/individualtitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textColor="@color/Black"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/individualdescription"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
                 android:textColor="@color/Black"

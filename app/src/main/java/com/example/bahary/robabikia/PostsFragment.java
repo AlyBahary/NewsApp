@@ -1,6 +1,7 @@
 package com.example.bahary.robabikia;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,6 +64,10 @@ public class PostsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_post, container, false);
+        int ScreenOrientation=getResources().getConfiguration().orientation;
+        if(ScreenOrientation== Configuration.ORIENTATION_LANDSCAPE){
+
+        }
         ButterKnife.bind(this, view);
         Hawk.init(getContext()).build();
         //Bundle bundle = getActivity().getIntent().getExtras();

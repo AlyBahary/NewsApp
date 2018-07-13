@@ -33,7 +33,7 @@ public class FavouritsActivity extends Activity {
     public NewsAdapter newsAdapter;
     public ArrayList<Articles> mArticlesArrayList, mArrayfromFB;
     private FirebaseAuth mAuth;
-    private int FlagFireBase;
+    private int Counter = -1;
 
 
     @Override
@@ -47,6 +47,11 @@ public class FavouritsActivity extends Activity {
         mArrayfromFB = new ArrayList<>();*/
         mArticlesArrayList = Hawk.get(Constants.mFavourit);
         mAuth = FirebaseAuth.getInstance();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.RV);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
+        newsAdapter = new NewsAdapter(this, mArrayfromFB);
+        recyclerView.setAdapter(newsAdapter);
+
         String user_id = mAuth.getCurrentUser().getUid();
 
         ////////////////////////////////
@@ -55,61 +60,63 @@ public class FavouritsActivity extends Activity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final Articles articlesfromFB = new Articles();
 
-        final DatabaseReference myRef = database.getReference(user_id).child("post");
-        // myRef.orderByChild("")
+        try {
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot chidSnap : dataSnapshot.getChildren()) {
-                    Log.i("tmz", "" + chidSnap);//gives the value for given keyname
-                    String key = chidSnap.getKey();
+            final DatabaseReference myRef = database.getReference(user_id).child("post");
+            // myRef.orderByChild("")
 
-                    Articles x = new Articles();
-                    x.setDescription(chidSnap.child("description").getValue() + "");
-                    x.setPublishedAt(chidSnap.child("publishedAt").getValue() + "");
-                    x.setTitle(chidSnap.child("title").getValue() + "");
-                    x.setUrlToImage(chidSnap.child("urlToImage").getValue() + "");
-                    mArrayfromFB.add(x);
-                    //Log.i("FireBase", "" + x.getTitle());//gives the value for given keyname
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
+                    for (DataSnapshot chidSnap : dataSnapshot.getChildren()) {
+                        Log.i("tmz", "" + chidSnap);//gives the value for given keyname
+                        String key = chidSnap.getKey();
+                        Articles x = new Articles();
+                        x.setDescription(chidSnap.child("description").getValue() + "");
+                        x.setPublishedAt(chidSnap.child("publishedAt").getValue() + "");
+                        x.setTitle(chidSnap.child("title").getValue() + "");
+                        x.setUrlToImage(chidSnap.child("urlToImage").getValue() + "");
+                        mArrayfromFB.add(x);
+                        newsAdapter.notifyDataSetChanged();
+                        //Log.i("FireBase", "" + x.getTitle());//gives the value for given keyname
+                    }
                 }
 
-                Helper.printText(getApplicationContext(), "Online Data");
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Helper.printText(getApplicationContext(), "Offline Data");
-                if (mArticlesArrayList.isEmpty()) {
-                    Helper.printText(getApplicationContext(), "There is no thing to Show");
+
                 }
-                mArrayfromFB.addAll(mArticlesArrayList);
+            });
+        } catch (Exception e) {
 
-            }
-        });
+        }
 
-        /////////////////////
         if (((mArticlesArrayList).isEmpty()) && ((mArrayfromFB).isEmpty())) {
             Toast.makeText(this, "there is no thing to show", Toast.LENGTH_SHORT).show();
         } else {
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.RV);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
-            newsAdapter = new NewsAdapter(this, mArrayfromFB);
-            recyclerView.setAdapter(newsAdapter);
             newsAdapter.notifyDataSetChanged();
 
         }
         newsAdapter.notifyDataSetChanged();
+        if (mArrayfromFB.isEmpty()) {
+            if (mArticlesArrayList.isEmpty()) {
+                Helper.printText(getApplicationContext(), "There is no thing to Show");
+            } else {
+                for (int i = 0; i < mArticlesArrayList.size(); i++) {
+                    Log.i("DB", mArticlesArrayList.get(i).getAuthor() + mArticlesArrayList.get(i).getTitle());
+                    if (mArticlesArrayList.get(i).getAuthor() != (Hawk.get(Constants.mEmail_Key))) {
+                        mArticlesArrayList.remove(i);
+                    }
+                }
+                mArrayfromFB.addAll(mArticlesArrayList);
+                newsAdapter.notifyDataSetChanged();
+            }
+
+        }
 
     }
 
 }
-       /*if (mArticlesArrayList != null) {
-                for (int ii = 0; ii < mArticlesArrayList.size(); ii++) {
-                    if (mArticlesArrayList.get(ii).getAuthor().equals(user_id)) {
-                        mArrayfromFB.add(mArticlesArrayList.get(ii));
-                    }
-                }
-            }*/

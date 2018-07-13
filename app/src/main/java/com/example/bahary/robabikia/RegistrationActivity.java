@@ -60,6 +60,11 @@ public class RegistrationActivity extends AppCompatActivity {
         if (Hawk.contains(Constants.mEmail_Key)) {
             email.setText(Hawk.get(Constants.mEmail_Key) + "");
         }
+        if(Hawk.get(Constants.loginflag).equals("1")){
+            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

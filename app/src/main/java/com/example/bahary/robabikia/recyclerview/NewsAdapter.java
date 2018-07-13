@@ -62,7 +62,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         } else {
             holder.Description.setText(N.getDescription() + "");
         }
-        if (N.getUrlToImage() == null) {
+        if (N.getUrlToImage() == null||N.getUrlToImage().equals("")) {
             holder.Img.setVisibility(View.GONE);
         } else {
             Picasso.with(context).load(N.getUrlToImage()).centerCrop().placeholder(R.drawable.bg_spinner).fit().into(holder.Img);
