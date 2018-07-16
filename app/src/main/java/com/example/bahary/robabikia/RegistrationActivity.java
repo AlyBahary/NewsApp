@@ -63,7 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         if (Hawk.contains(Constants.loginflag)) {
             if (Hawk.get(Constants.loginflag).equals("1")) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -78,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 dialog.show();
                 useremail = email.getText().toString();
                 if (useremail.equals("")) {
-                    Helper.printText(getApplicationContext(), "please enter your email");
+                    Helper.printText(RegistrationActivity.this, "please enter your email");
 
                 } else {
                     Hawk.put(Constants.mEmail_Key, useremail);
@@ -88,8 +88,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
-                                Helper.printText(getApplicationContext(), "Welcome Again" + useremail);
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Helper.printText(RegistrationActivity.this, "Welcome Again" + useremail);
+                                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                                 dialog.dismiss();
@@ -103,13 +103,13 @@ public class RegistrationActivity extends AppCompatActivity {
                                 try {
                                     throw task.getException();
                                 } catch (FirebaseAuthInvalidCredentialsException e) {
-                                    Helper.printText(getApplicationContext(), "Please write Valid Email");
+                                    Helper.printText(RegistrationActivity.this, "Please write Valid Email");
                                     dialog.dismiss();
 
 
                                 } catch (Exception e) {
-                                    Helper.printText(getApplicationContext(), "Weak internet Connection");
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Helper.printText(RegistrationActivity.this, "Weak internet Connection");
+                                    Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     dialog.dismiss();
                                     //if flag=="0" there is no internet connection
@@ -121,8 +121,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if (task.isSuccessful()) {
-                                                    Helper.printText(getApplicationContext(), "Welcome first time" + useremail);
-                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    Helper.printText(RegistrationActivity.this, "Welcome first time" + useremail);
+                                                    Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                                                     startActivity(intent);
                                                     dialog.dismiss();
                                                     //if flag=="1" there is internet connection

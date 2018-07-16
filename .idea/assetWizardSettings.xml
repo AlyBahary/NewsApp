@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="opacityPercent" value="80" />
-                            <entry key="outputName" value="ic_star_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\Bahary" />
+                            <entry key="outputName" value="ic_logout" />
+                            <entry key="sourceFile" value="C:\Users\Bahary\Downloads\logout.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -111,7 +111,7 @@ public class FavouritsActivity extends Activity {
         else{
 
             if (mArticlesArrayList == null) {
-                Helper.printText(getApplicationContext(), "There is no thing to Show");
+                Helper.printText(FavouritsActivity.this, "There is no thing to Show");
             } else {
                 Log.i("33333", "null");
 
